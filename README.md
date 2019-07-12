@@ -4,7 +4,7 @@
 
 Change directory to project's directory
 
-Install requirements
+Install dependencies
 
 $ pip install -r req.txt
 
