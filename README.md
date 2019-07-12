@@ -5,6 +5,7 @@
 Change directory to project's directory
 
 Install requirements
+
 $ pip install -r req.txt
 
 Set username and password for mysql in photolib/settings.py
