@@ -9,7 +9,7 @@ class Album(models.Model):
     cover = models.ImageField(null=True)
 
     def __str__(self):
-        return self.file.name
+        return self.name
 
 
 class Image(models.Model):
