@@ -12,12 +12,12 @@ class App extends React.Component {
     this.logout = this.logout.bind(this);
   }
 
-  async login() {
+  async login(params) {
     if ( this.state.login )
       return;
     let data = {
-      "username": "amit",
-      "password": "Amit@123"
+      "username": params.username,
+      "password": params.password,
     }
 
     let url = `${API_HOST}/api/v1/rest-auth/login/`;
@@ -35,7 +35,7 @@ class App extends React.Component {
     })
     .then(function(myJson) {
       selfReference.setState({ 'token' : myJson.key, 'login': true });
-      //console.log(selfReference.state);
+      console.log(selfReference.state);
     });
   }
 

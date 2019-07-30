@@ -34,7 +34,7 @@ class Login extends React.Component {
         }
 
         this.setState({ loading: true });
-        this.props.login();
+        this.props.login( this.state);
     }
 
     render() {
