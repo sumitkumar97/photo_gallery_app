@@ -1,5 +1,5 @@
 .ui.input{
-    margin-left: 10px;
+    margin-left: 20px;
 }
 
 .flexdiv{
@@ -9,4 +9,12 @@
 
 .ui.primary.button.signup{
     margin-left: 200px;
+}
+
+.topdiv-flex{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
 }

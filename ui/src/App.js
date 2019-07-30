@@ -1,5 +1,6 @@
 import React from 'react';
 import Login from './Login';
+import Albums from './Albums';
 
 const API_HOST = 'http://127.0.0.1:8000';
 
@@ -7,7 +8,6 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = { 'appState': 'loginPage', 'token': null };
-    this.createAlbum = this.createAlbum.bind(this);
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
   }
@@ -90,7 +90,7 @@ class App extends React.Component {
   render(){
     if ( this.state.appState === 'loginPage' ){
       return (
-        <div>
+        <div className="topdiv-flex">
           <h2 className="ui header">Photo Gallery App</h2>
           <Login login={this.login}/>
         </div>
@@ -98,12 +98,9 @@ class App extends React.Component {
     }
     else if ( this.state.appState === 'albumsPage'){
       return (
-        <div>
-          <h2 className="ui header">Photo Gallery App</h2>
-          <button className="ui primary button" onClick={this.createAlbum}>Create New Album</button>
-          <input type='file' className="ui secondary button"/>
-          <button className="ui button" onClick={this.logout}>Logout</button>
-        </div>
+        <Albums
+          logout={this.logout}
+        />
       );
     }  
     return (
