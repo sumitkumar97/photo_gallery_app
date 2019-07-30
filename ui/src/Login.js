@@ -19,10 +19,10 @@ class Login extends React.Component {
 
     handleChange(e) {
         const { name, value } = e.target;
-        this.setState({ [name]: value });
+        this.setState({ [name]: value, error:'' });
     }
 
-    handleSubmit(e) {
+    async handleSubmit(e) {
         e.preventDefault();
 
         this.setState({ submitted: true });
@@ -34,7 +34,8 @@ class Login extends React.Component {
         }
 
         this.setState({ loading: true });
-        this.props.login( this.state);
+        await this.props.login(this.state);
+        this.setState({ loading: false, error: 'Unable to log in with provided credentials.' });
     }
 
     render() {

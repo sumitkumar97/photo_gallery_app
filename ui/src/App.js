@@ -34,8 +34,12 @@ class App extends React.Component {
       return response.json();
     })
     .then(function(myJson) {
+      console.log(myJson);
+      if ( !myJson.key )
+        return "failed";
       selfReference.setState({ 'token' : myJson.key, 'login': true });
       console.log(selfReference.state);
+      return "success";
     });
   }
 
