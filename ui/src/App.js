@@ -6,14 +6,14 @@ const API_HOST = 'http://127.0.0.1:8000';
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { 'login': false, 'token': null };
+    this.state = { 'appState': 'loginPage', 'token': null };
     this.createAlbum = this.createAlbum.bind(this);
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
   }
 
   async login(params) {
-    if ( this.state.login )
+    if ( this.state.appState !== 'loginPage' )
       return;
     let data = {
       "username": params.username,
@@ -36,11 +36,12 @@ class App extends React.Component {
     .then(function(myJson) {
       //console.log(myJson);
       if ( typeof myJson.key === "undefined" )
-        return "failed";
-      selfReference.setState({ 'token' : myJson.key, 'login': true });
+        return;
+      selfReference.setState({ 'token' : myJson.key, 'appState': 'albumsPage' });
       //console.log(selfReference.state);
-      return "success";
     });
+    if ( this.state.appState === 'loginPage' )
+      return "failed";
   }
 
   async logout() {
@@ -60,7 +61,7 @@ class App extends React.Component {
     }).then(function(response){
       //console.log(response);
       if (response.detail === "Successfully logged out.")
-        selfReference.setState({ 'token' : null, 'login': false });
+        selfReference.setState({ 'token' : null, 'appState': 'loginPage' });
       return response;
     })
   }
@@ -87,10 +88,24 @@ class App extends React.Component {
   }
 
   render(){
-    if ( !this.state.login )
-      return <Login login={this.login} createAlbum={this.createAlbum}/>;
-    //this.logout();
-    this.login();
+    if ( this.state.appState === 'loginPage' ){
+      return (
+        <div>
+          <h2 className="ui header">Photo Gallery App</h2>
+          <Login login={this.login}/>
+        </div>
+      );
+    }
+    else if ( this.state.appState === 'albumsPage'){
+      return (
+        <div>
+          <h2 className="ui header">Photo Gallery App</h2>
+          <button className="ui primary button" onClick={this.createAlbum}>Create New Album</button>
+          <input type='file' className="ui secondary button"/>
+          <button className="ui button" onClick={this.logout}>Logout</button>
+        </div>
+      );
+    }  
     return (
       <div>
         <h2 className="ui header">Photo Gallery App</h2>
