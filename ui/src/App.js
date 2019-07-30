@@ -45,10 +45,12 @@ class App extends React.Component {
 
   async logout() {
     let url = `${API_HOST}/api/v1/rest-auth/logout/`;
+    let selfReference = this ;
     await fetch(url, {
       method: 'POST', // *GET, POST, PUT, DELETE, etc.
       headers: {
           'Content-Type': 'application/json',
+          'Authorization': `TOKEN ${selfReference.state.token}`,
           // 'Content-Type': 'application/x-www-form-urlencoded',
       },
       body: JSON.stringify({}), // body data type must match "Content-Type" header
@@ -56,7 +58,9 @@ class App extends React.Component {
     .then(function(response) {
       return response.json();
     }).then(function(response){
-      console.log(response);
+      //console.log(response);
+      if (response.detail === "Successfully logged out.")
+        selfReference.setState({ 'token' : null, 'login': false });
       return response;
     })
   }
@@ -92,6 +96,7 @@ class App extends React.Component {
         <h2 className="ui header">Photo Gallery App</h2>
         <button className="ui primary button" onClick={this.createAlbum}>Create New Album</button>
         <input type='file' className="ui secondary button"/>
+        <button className="ui button" onClick={this.logout}>Logout</button>
       </div>
     );
     }
