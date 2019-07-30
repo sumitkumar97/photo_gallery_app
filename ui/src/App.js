@@ -1,16 +1,18 @@
 import React from 'react';
+import Login from './Login';
 
 const API_HOST = 'http://127.0.0.1:8000';
-let token = null;
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = { 'login': false, 'token': null };
     this.createAlbum = this.createAlbum.bind(this);
+    this.login = this.login.bind(this);
+    this.logout = this.logout.bind(this);
   }
 
-  async login(params) {
+  async login() {
     if ( this.state.login )
       return;
     let data = {
@@ -33,11 +35,11 @@ class App extends React.Component {
     })
     .then(function(myJson) {
       selfReference.setState({ 'token' : myJson.key, 'login': true });
-      console.log(selfReference.state);
+      //console.log(selfReference.state);
     });
   }
 
-  async logout(params) {
+  async logout() {
     let url = `${API_HOST}/api/v1/rest-auth/logout/`;
     await fetch(url, {
       method: 'POST', // *GET, POST, PUT, DELETE, etc.
@@ -56,19 +58,16 @@ class App extends React.Component {
   }
   
   createAlbum(){
-    let url = `${API_HOST}/api/v1/album/create`;
-    console.log(this);
+    let url = `${API_HOST}/api/v1/album/list/private`;
     let selfReference = this ;
     fetch(url, {
-      method: 'POST', // *GET, POST, PUT, DELETE, etc.
+      method: 'GET', // *GET, POST, PUT, DELETE, etc.
       headers: {
           'Content-Type': 'application/json',
           'Authorization': `TOKEN ${selfReference.state.token}`,
       },
-      body: JSON.stringify({
-        'name': 'Ocean',
-        'privacy': '1'
-      }), // body data type must match "Content-Type" header
+      //body: JSON.stringify({
+      //}), // body data type must match "Content-Type" header
     })
     .then(function(response) {
       return response.json();
@@ -80,12 +79,15 @@ class App extends React.Component {
   }
 
   render(){
+    if ( !this.state.login )
+      return <Login login={this.login} createAlbum={this.createAlbum}/>;
     //this.logout();
     this.login();
     return (
       <div>
         <h2 className="ui header">Photo Gallery App</h2>
         <button className="ui primary button" onClick={this.createAlbum}>Create New Album</button>
+        <input type='file'/>
       </div>
     );
     }

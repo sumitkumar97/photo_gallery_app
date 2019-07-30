@@ -1,0 +1,12 @@
+.ui.input{
+    margin-left: 10px;
+}
+
+.flexdiv{
+    display: flex;
+    align-items: center;
+}
+
+.ui.primary.button.signup{
+    margin-left: 200px;
+}
