@@ -34,11 +34,11 @@ class App extends React.Component {
       return response.json();
     })
     .then(function(myJson) {
-      console.log(myJson);
-      if ( !myJson.key )
+      //console.log(myJson);
+      if ( typeof myJson.key === "undefined" )
         return "failed";
       selfReference.setState({ 'token' : myJson.key, 'login': true });
-      console.log(selfReference.state);
+      //console.log(selfReference.state);
       return "success";
     });
   }
@@ -91,7 +91,7 @@ class App extends React.Component {
       <div>
         <h2 className="ui header">Photo Gallery App</h2>
         <button className="ui primary button" onClick={this.createAlbum}>Create New Album</button>
-        <input type='file'/>
+        <input type='file' className="ui secondary button"/>
       </div>
     );
     }
