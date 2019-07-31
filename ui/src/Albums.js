@@ -1,6 +1,7 @@
 import React from 'react';
 import { Menu } from 'semantic-ui-react';
 import CreateAlbum from './CreateAlbum';
+import MyAlbums from './MyAlbums';
 
 class Albums extends React.Component {
     constructor(props) {
@@ -44,6 +45,14 @@ class Albums extends React.Component {
                 </Menu>
                 { this.state.activeItem === 'createAlbum' ?
                     <CreateAlbum
+                        token={token}
+                        changeAppState={this.props.changeAppState}
+                    />
+                :
+                    null
+                }
+                { this.state.activeItem === 'allAlbums' ?
+                    <MyAlbums
                         token={token}
                         changeAppState={this.props.changeAppState}
                     />

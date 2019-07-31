@@ -23,3 +23,16 @@
 .private{
     margin-right: 20px;
 }
+
+.flexdiv-vertical{
+    display: flex;
+    align-items: left;
+    margin: 10px 0;
+    flex-direction: column;
+}
+
+.album-container {
+    display: flex;
+    align-items: left;
+    padding-left: 40px;
+}
