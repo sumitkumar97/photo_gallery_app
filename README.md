@@ -4,11 +4,15 @@
 
 Change directory to project's directory
 
+Create Python Virtual Environment for project
+
 Install dependencies
 
 $ pip install -r req.txt
 
 Set username and password for mysql in photolib/settings.py
+
+Create mysql database named 'photogallery'
 
 $ python manage.py makemigrations
 
