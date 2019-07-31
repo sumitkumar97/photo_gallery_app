@@ -43,7 +43,7 @@ class Login extends React.Component {
     render() {
         const { username, password, submitted, loading, error } = this.state;
         return (
-            <div>
+            <div className='form-container'>
                 <div className="flexdiv">
                     <h2>Login</h2>
                     <button
@@ -53,12 +53,12 @@ class Login extends React.Component {
                         SignUp
                     </button>
                 </div>
-                <form name="login-form" className="ui fluid form" onSubmit={this.handleSubmit}>
+                <form className="ui fluid form" onSubmit={this.handleSubmit}>
                     <div className="flexdiv">
-                    <div>Username</div>
-                    <div className="ui input">
-                        <input type="text" name="username" value={username} onChange={this.handleChange} />
-                    </div>
+                        <div>Username</div>
+                        <div className="ui input">
+                            <input type="text" name="username" value={username} onChange={this.handleChange} />
+                        </div>
                         {submitted && !username &&
                             <div className="ui left pointing red basic label">Username is required</div>
                         }
@@ -66,7 +66,7 @@ class Login extends React.Component {
                     <div className="flexdiv">
                         <div>Password</div>
                         <div className="ui input">
-                        <input type="password" name="password" value={password} onChange={this.handleChange} />
+                            <input type="password" name="password" value={password} onChange={this.handleChange} />
                         </div>
                         {submitted && !password &&
                             <div className="ui left pointing red basic label">Password is required</div>
