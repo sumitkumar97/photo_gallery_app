@@ -2,13 +2,17 @@ import React from 'react';
 import { Menu } from 'semantic-ui-react';
 import CreateAlbum from './CreateAlbum';
 
-//const API_HOST = 'http://127.0.0.1:8000';
-
 class Albums extends React.Component {
     constructor(props) {
         super(props);
         this.state = { activeItem: this.props.activeItem ? this.props.activeItem : 'trending' };
     }
+
+    componentWillReceiveProps(nextProps){
+        if (nextProps.activeItem && nextProps.activeItem !== this.state.activeItem )
+            this.setState({ activeItem: nextProps.activeItem });
+    }
+
     render(){
         let {logout, token} = this.props;
         return(
@@ -39,7 +43,10 @@ class Albums extends React.Component {
                     </Menu.Menu>
                 </Menu>
                 { this.state.activeItem === 'createAlbum' ?
-                    <CreateAlbum token={token}/>
+                    <CreateAlbum
+                        token={token}
+                        changeAppState={this.props.changeAppState}
+                    />
                 :
                     null
                 }

@@ -7,9 +7,14 @@ const API_HOST = 'http://127.0.0.1:8000';
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { 'appState': 'loginPage', 'token': null };
+    this.state = { 'appState': 'loginPage', 'token': null, 'albumActiveItem': null };
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
+    this.changeAppState = this.changeAppState.bind(this);
+  }
+
+  changeAppState(params){
+      this.setState({ 'appState': params.appState, 'albumActiveItem': params.albumActiveItem })
   }
 
   async login(params) {
@@ -82,6 +87,8 @@ class App extends React.Component {
         <Albums
           logout={this.logout}
           token={this.state.token}
+          changeAppState={this.changeAppState}
+          activeItem={this.state.albumActiveItem}
         />
       );
     }  

@@ -25,16 +25,19 @@ class CreateAlbum extends React.Component {
         this.handlePrivacy = this.handlePrivacy.bind(this);
     }
 
-    createAlbum(){
-        let url = `${API_HOST}/api/v1/album/create`;
+    async createAlbum(){
+        let url = `${API_HOST}/api/v1/album/create`, result;
         let { token, name, description, cover, privacy } = this.state;
+        let selfReference = this ;
         const formData = new FormData();
         formData.append('name', name);
-        formData.append('description', description === '' ? null : description);
-        formData.append('cover', cover);
+        if ( description )
+            formData.append('description', description === '' ? null : description);
+        if ( cover )
+            formData.append('cover', cover);
         formData.append('privacy', privacy);
     
-        fetch(url, {
+        await fetch(url, {
             method: 'POST', // *GET, POST, PUT, DELETE, etc.
             headers: {
                 //'Content-Type': 'application/json',
@@ -47,8 +50,18 @@ class CreateAlbum extends React.Component {
         })
         .catch(error => console.error('Error:', error))
         .then(function(myJson) {
-            let result = JSON.stringify(myJson);
-            console.log(result);
+            result = myJson;
+            if ( result && result.id ){
+                console.log(result);
+                let newState = {
+                    'appState': 'albumsPage',
+                    'albumActiveItem': 'allAlbums'
+                };
+                selfReference.props.changeAppState(newState);
+            }
+            else
+                selfReference.setState({ loading: false });
+            return result;
         });
     }
 
@@ -79,12 +92,7 @@ class CreateAlbum extends React.Component {
 
         this.setState({ loading: true });
         this.createAlbum();
-        /*let response = await this.props.login(this.state);
-        //console.log(response);
-        if ( response === "failed" )
-            this.setState({ loading: false, error: 'Unable to log in with provided credentials.' });
-        */
-    }
+   }
 
     render() {
         const { name, description, privacy, submitted, loading, error } = this.state;
