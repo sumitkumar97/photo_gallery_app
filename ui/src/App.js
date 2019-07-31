@@ -82,7 +82,7 @@ class App extends React.Component {
         </div>
       );
     }
-    else if ( this.state.appState === 'albumsPage'){
+    if ( this.state.appState === 'albumsPage'){
       return (
         <Albums
           logout={this.logout}
@@ -92,15 +92,7 @@ class App extends React.Component {
         />
       );
     }  
-    return (
-      <div>
-        <h2 className="ui header">Photo Gallery App</h2>
-        <button className="ui primary button" onClick={this.createAlbum}>Create New Album</button>
-        <input type='file' className="ui secondary button"/>
-        <button className="ui button" onClick={this.logout}>Logout</button>
-      </div>
-    );
-    }
+  }
 }
 
 export default App;

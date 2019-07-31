@@ -3,7 +3,7 @@ import './styles.css';
 
 const API_HOST = 'http://127.0.0.1:8000';
 
-class MyAlbums extends React.Component {
+class Trending extends React.Component {
     constructor(props) {
         super(props);
 
@@ -20,7 +20,7 @@ class MyAlbums extends React.Component {
     }
 
     async fetchAlbums(){
-        let url = `${API_HOST}/api/v1/album/list/private`, result;
+        let url = `${API_HOST}/api/v1/album/list/public`, result;
         let { token } = this.state;
         let selfReference = this ;
         await fetch(url, {
@@ -73,4 +73,4 @@ class MyAlbums extends React.Component {
     }
 }
 
-export default MyAlbums;
+export default Trending;

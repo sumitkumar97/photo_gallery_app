@@ -2,6 +2,7 @@ import React from 'react';
 import { Menu } from 'semantic-ui-react';
 import CreateAlbum from './CreateAlbum';
 import MyAlbums from './MyAlbums';
+import Trending from './Trending';
 
 class Albums extends React.Component {
     constructor(props) {
@@ -53,6 +54,14 @@ class Albums extends React.Component {
                 }
                 { this.state.activeItem === 'allAlbums' ?
                     <MyAlbums
+                        token={token}
+                        changeAppState={this.props.changeAppState}
+                    />
+                :
+                    null
+                }
+                { this.state.activeItem === 'trending' ?
+                    <Trending
                         token={token}
                         changeAppState={this.props.changeAppState}
                     />
