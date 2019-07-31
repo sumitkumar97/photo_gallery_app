@@ -2,6 +2,8 @@ import React from 'react';
 import './styles.css';
 import { Form, Radio } from 'semantic-ui-react'
 
+const API_HOST = 'http://127.0.0.1:8000';
+
 class CreateAlbum extends React.Component {
     constructor(props) {
         super(props);
@@ -13,13 +15,41 @@ class CreateAlbum extends React.Component {
             privacy: 0,
             submitted: false,
             loading: false,
-            error: ''
+            error: '',
+            token: this.props.token,
         };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleUpload = this.handleUpload.bind(this);
         this.handlePrivacy = this.handlePrivacy.bind(this);
+    }
+
+    createAlbum(){
+        let url = `${API_HOST}/api/v1/album/create`;
+        let { token, name, description, cover, privacy } = this.state;
+        const formData = new FormData();
+        formData.append('name', name);
+        formData.append('description', description === '' ? null : description);
+        formData.append('cover', cover);
+        formData.append('privacy', privacy);
+    
+        fetch(url, {
+            method: 'POST', // *GET, POST, PUT, DELETE, etc.
+            headers: {
+                //'Content-Type': 'application/json',
+                'Authorization': `TOKEN ${token}`,
+            },
+            body: formData // body data type must match "Content-Type" header
+        })
+        .then(function(response) {
+            return response.json();
+        })
+        .catch(error => console.error('Error:', error))
+        .then(function(myJson) {
+            let result = JSON.stringify(myJson);
+            console.log(result);
+        });
     }
 
     handleChange(e) {
@@ -33,7 +63,6 @@ class CreateAlbum extends React.Component {
 
 
     handleUpload(e){
-        console.log(e.target.files[0]);
         this.setState({ cover: e.target.files[0]});
     }
 
@@ -49,6 +78,7 @@ class CreateAlbum extends React.Component {
         }
 
         this.setState({ loading: true });
+        this.createAlbum();
         /*let response = await this.props.login(this.state);
         //console.log(response);
         if ( response === "failed" )
@@ -59,9 +89,8 @@ class CreateAlbum extends React.Component {
     render() {
         const { name, description, privacy, submitted, loading, error } = this.state;
         return (
-            <div>
+            <div className="flexdiv">
                 <form className="ui fluid form" onSubmit={this.handleSubmit}>
-                    <input type='file' name='cover' onChange={this.handleUpload}/>
                     <div className="flexdiv">
                         <div>Name</div>
                         <div className="ui input">
@@ -99,6 +128,9 @@ class CreateAlbum extends React.Component {
                                 onChange={this.handlePrivacy}
                             />
                         </Form.Field>
+                    </div>
+                    <div className = "flexdiv">
+                        <input type='file' name='cover' onChange={this.handleUpload}/>
                     </div>
                     <div>
                         <button className="ui primary button" disabled={loading}>Create</button>

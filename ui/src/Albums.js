@@ -10,7 +10,7 @@ class Albums extends React.Component {
         this.state = { activeItem: this.props.activeItem ? this.props.activeItem : 'trending' };
     }
     render(){
-        let {logout} = this.props;
+        let {logout, token} = this.props;
         return(
             <div className="topdiv-flex">
                 <h2 className="ui header">Photo Gallery App</h2>
@@ -39,7 +39,7 @@ class Albums extends React.Component {
                     </Menu.Menu>
                 </Menu>
                 { this.state.activeItem === 'createAlbum' ?
-                    <CreateAlbum/>
+                    <CreateAlbum token={token}/>
                 :
                     null
                 }

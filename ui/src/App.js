@@ -66,26 +66,7 @@ class App extends React.Component {
     })
   }
   
-  createAlbum(){
-    let url = `${API_HOST}/api/v1/album/list/private`;
-    let selfReference = this ;
-    fetch(url, {
-      method: 'GET', // *GET, POST, PUT, DELETE, etc.
-      headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `TOKEN ${selfReference.state.token}`,
-      },
-      //body: JSON.stringify({
-      //}), // body data type must match "Content-Type" header
-    })
-    .then(function(response) {
-      return response.json();
-    })
-    .then(function(myJson) {
-      let result = JSON.stringify(myJson);
-      console.log(result);
-    });
-  }
+  
 
   render(){
     if ( this.state.appState === 'loginPage' ){
@@ -100,6 +81,7 @@ class App extends React.Component {
       return (
         <Albums
           logout={this.logout}
+          token={this.state.token}
         />
       );
     }  
