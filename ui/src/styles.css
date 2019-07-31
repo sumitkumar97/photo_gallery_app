@@ -27,12 +27,13 @@
 .flexdiv-vertical{
     display: flex;
     align-items: left;
-    margin: 10px 0;
+    margin: 30px 0;
     flex-direction: column;
 }
 
 .album-container {
     display: flex;
-    align-items: left;
+    width: 100%;
     padding-left: 40px;
+    flex-direction: column;
 }

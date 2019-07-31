@@ -43,9 +43,31 @@ class MyAlbums extends React.Component {
     }
 
     render() {
+        let {albumList} = this.state;
+        let albumListJsx = albumList.map(
+            function(album){
+                return (<div key={album.id} className='flexdiv-vertical'>
+                            <h3>{album.name}</h3>
+                            <div>{`By ${album.owner}`}</div>
+                            { album.cover ?
+                                <img className="ui small image" style={{'width': '500px'}} src={API_HOST+album.cover} alt='Not available'/>
+                            :
+                                null
+                            }
+                            { album.description ?
+                                <div className="ui compact message">
+                                    <p>{album.description}</p>
+                                </div>
+                            :
+                                null
+                            }
+                        </div>
+                );
+            }
+        );
         return <div className='album-container'>
             {
-
+                albumListJsx
             }
         </div>
     }
