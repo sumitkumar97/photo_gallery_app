@@ -1,7 +1,7 @@
 import React from 'react';
 import './styles.css';
 
-class Login extends React.Component {
+class SignUp extends React.Component {
     constructor(props) {
         super(props);
 
@@ -45,13 +45,7 @@ class Login extends React.Component {
         return (
             <div>
                 <div className="flexdiv">
-                    <h2>Login</h2>
-                    <button
-                        className="ui primary button signup"
-                        onClick={()=>this.props.changeAppState({'appState': 'signUp'})}
-                    >
-                        SignUp
-                    </button>
+                    <h2>SignUp</h2>
                 </div>
                 <form name="login-form" className="ui fluid form" onSubmit={this.handleSubmit}>
                     <div className="flexdiv">
@@ -98,4 +92,4 @@ class Login extends React.Component {
     }
 }
 
-export default Login;
+export default SignUp;

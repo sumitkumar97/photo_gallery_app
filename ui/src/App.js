@@ -1,6 +1,7 @@
 import React from 'react';
 import Login from './Login';
 import Albums from './Albums';
+import SignUp from './SignUp';
 
 const API_HOST = 'http://127.0.0.1:8000';
 
@@ -78,7 +79,20 @@ class App extends React.Component {
       return (
         <div className="topdiv-flex">
           <h2 className="ui header">Photo Gallery App</h2>
-          <Login login={this.login}/>
+          <Login
+            login={this.login}
+            changeAppState={this.changeAppState}
+          />
+        </div>
+      );
+    }
+    if ( this.state.appState === 'signUp' ){
+      return (
+        <div className="topdiv-flex">
+          <h2 className="ui header">Photo Gallery App</h2>
+          <SignUp
+            changeAppState={this.changeAppState}
+          />
         </div>
       );
     }
@@ -91,7 +105,8 @@ class App extends React.Component {
           activeItem={this.state.albumActiveItem}
         />
       );
-    }  
+    }
+    return null;  
   }
 }
 
