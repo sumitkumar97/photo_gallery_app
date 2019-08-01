@@ -92,6 +92,12 @@ class SignUp extends React.Component {
             <div className='form-container'>
                 <div className="flexdiv">
                     <h2>SignUp</h2>
+                    <button
+                        className="ui primary button signup"
+                        onClick={()=>this.props.changeAppState({'appState': 'loginPage'})}
+                    >
+                        Login
+                    </button>
                 </div>
                 <form className="ui fluid form" onSubmit={this.handleSubmit}>
                     <div className="flexdiv">
