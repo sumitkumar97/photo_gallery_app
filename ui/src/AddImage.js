@@ -49,7 +49,7 @@ class AddImage extends React.Component {
         .then(function(myJson) {
             result = myJson;
             if ( result && result.id ){
-                console.log(result);
+                //console.log(result);
                 let newState = {
                     albumId,
                     albumName,

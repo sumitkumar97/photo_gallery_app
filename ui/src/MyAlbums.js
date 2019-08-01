@@ -75,7 +75,7 @@ class MyAlbums extends React.Component {
                                             {
                                                 albumId: album.id,
                                                 albumName: album.name,
-                                                albumOwner: album.owner,
+                                                albumOwner: true,
                                                 imageActiveItem: 'images',
                                                 appState: 'imagesPage',
                                             }

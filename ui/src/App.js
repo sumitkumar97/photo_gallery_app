@@ -29,7 +29,7 @@ class App extends React.Component {
       'albumId': params.albumId,
       'imageActiveItem': params.imageActiveItem,
       'albumName': params.albumName,
-      'albumOwner': true
+      'albumOwner': params.albumOwner,
     })
   }
 

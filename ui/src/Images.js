@@ -56,6 +56,7 @@ class Images extends React.Component {
                         token={token}
                         changeAppState={this.props.changeAppState}
                         albumOwner={albumOwner}
+                        albumId={albumId}
                     />
                 :
                     null

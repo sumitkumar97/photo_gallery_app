@@ -9,19 +9,19 @@ class AlbumImage extends React.Component {
 
         this.state = {
             token: this.props.token,
-            albumList: []
+            imageList: []
         };
 
-        this.fetchAlbums = this.fetchAlbums.bind(this);
-        this.deleteAlbums = this.deleteAlbums.bind(this);
+        this.fetchImages = this.fetchImages.bind(this);
+        this.deleteImages = this.deleteImages.bind(this);
     }
 
     componentWillMount(){
-        this.fetchAlbums();
+        this.fetchImages();
     }
 
-    async fetchAlbums(){
-        let url = `${API_HOST}/api/v1/album/list/private`, result;
+    async fetchImages(){
+        let url = `${API_HOST}/api/v1/album/${this.props.albumId}/images`, result;
         let { token } = this.state;
         let selfReference = this ;
         await fetch(url, {
@@ -38,13 +38,13 @@ class AlbumImage extends React.Component {
         .then(function(myJson) {
             result = myJson;
             //console.log(result);
-            selfReference.setState({albumList: result});
+            selfReference.setState({imageList: result});
             return result;
         });
     }
 
-    async deleteAlbums(albumId){
-        let url = `${API_HOST}/api/v1/album/delete/${albumId}`;
+    async deleteImages(imageId){
+        let url = `${API_HOST}/api/v1/album/delete/image/${imageId}`;
         let { token } = this.state;
         let selfReference = this ;
         await fetch(url, {
@@ -55,45 +55,29 @@ class AlbumImage extends React.Component {
             }
         })
         .then(function(response) {
-            selfReference.fetchAlbums();
+            selfReference.fetchImages();
             return response;
         })
         .catch(error => console.error('Error:', error));
     }
 
     render() {
-        let {albumList} = this.state;
+        let {imageList} = this.state;
         let selfReference = this ;
-        let albumListJsx = albumList.map(
-            function(album){
-                return (<div key={album.id} className='flexdiv-vertical'>
+        let imageListJsx = imageList.map(
+            function(image){
+                return (<div key={image.id} className='flexdiv-vertical'>
+                        {   selfReference.props.albumOwner ?
                             <div style={{'display':'flex'}}>
-                                <u>
-                                    <h3
-                                        className="click-heading"
-                                        onClick={()=>selfReference.props.changeAppState(
-                                            {
-                                                albumId: album.id,
-                                                albumName: album.name,
-                                                albumOwner: album.owner,
-                                                imageActiveItem: 'images',
-                                                appState: 'imagesPage',
-                                            }
-                                        )}
-                                    >
-                                        {album.name}
-                                    </h3>
-                                </u>
-                                <button className="negative ui button" onClick={()=>selfReference.deleteAlbums(album.id)}>Delete</button>
+                                <button className="negative ui button" onClick={()=>selfReference.deleteImages(image.id)}>Delete</button>
                             </div>
-                            { album.cover ?
-                                <img className="ui small image" style={{'width': '500px'}} src={API_HOST+album.cover} alt='Not available'/>
-                            :
-                                null
-                            }
-                            { album.description ?
+                        :
+                            null
+                        }
+                            <img className="ui small image" style={{'width': '500px'}} src={API_HOST+image.file} alt='Not available'/>
+                            { image.description ?
                                 <div className="ui compact message">
-                                    <p>{album.description}</p>
+                                    <p>{image.description}</p>
                                 </div>
                             :
                                 null
@@ -104,7 +88,7 @@ class AlbumImage extends React.Component {
         );
         return <div className='album-container'>
             {
-                albumListJsx
+                imageListJsx
             }
         </div>
     }
