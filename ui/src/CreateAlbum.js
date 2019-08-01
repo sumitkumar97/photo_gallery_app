@@ -54,8 +54,11 @@ class CreateAlbum extends React.Component {
             if ( result && result.id ){
                 //console.log(result);
                 let newState = {
-                    'appState': 'albumsPage',
-                    'albumActiveItem': 'allAlbums'
+                    appState: 'imagesPage',
+                    imageActiveItem: 'images',
+                    albumId: result.id,
+                    albumName: result.name,
+                    albumOwner: true,
                 };
                 selfReference.props.changeAppState(newState);
             }
