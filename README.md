@@ -4,7 +4,7 @@
 
 Change directory to project's directory
 
-Create Python Virtual Environment for project
+Create and activate Python Virtual Environment for project
 
 Install dependencies
 

@@ -2,20 +2,35 @@ import React from 'react';
 import Login from './Login';
 import Albums from './Albums';
 import SignUp from './SignUp';
+import Images from './Images';
 
 const API_HOST = 'http://127.0.0.1:8000';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { 'appState': 'loginPage', 'token': null, 'albumActiveItem': null };
+    this.state = { 
+      'appState': 'loginPage',
+      'token': null,
+      'albumActiveItem': null,
+      'albumId': null,
+      'imageActiveItem': null,
+      'albumName': null,
+      'albumOwner': null
+    };
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
     this.changeAppState = this.changeAppState.bind(this);
   }
 
   changeAppState(params){
-      this.setState({ 'appState': params.appState, 'albumActiveItem': params.albumActiveItem })
+    this.setState({ 'appState': params.appState,
+      'albumActiveItem': params.albumActiveItem,
+      'albumId': params.albumId,
+      'imageActiveItem': params.imageActiveItem,
+      'albumName': params.albumName,
+      'albumOwner': true
+    })
   }
 
   async login(params) {
@@ -103,6 +118,19 @@ class App extends React.Component {
           token={this.state.token}
           changeAppState={this.changeAppState}
           activeItem={this.state.albumActiveItem}
+        />
+      );
+    }
+    if ( this.state.appState === 'imagesPage'){
+      return (
+        <Images
+          logout={this.logout}
+          token={this.state.token}
+          changeAppState={this.changeAppState}
+          activeItem={this.state.imageActiveItem}
+          albumId = {this.state.albumId}
+          albumName = {this.state.albumName}
+          albumOwner = {this.state.albumOwner}
         />
       );
     }

@@ -3,7 +3,7 @@ import './styles.css';
 
 const API_HOST = 'http://127.0.0.1:8000';
 
-class MyAlbums extends React.Component {
+class AlbumImage extends React.Component {
     constructor(props) {
         super(props);
 
@@ -110,4 +110,4 @@ class MyAlbums extends React.Component {
     }
 }
 
-export default MyAlbums;
+export default AlbumImage;

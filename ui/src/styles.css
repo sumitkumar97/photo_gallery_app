@@ -42,3 +42,8 @@
     width: 100%;
     margin-left: 500px;
 }
+
+.click-heading {
+    cursor: pointer;
+    margin-right: 350px;
+}
