@@ -17,7 +17,7 @@ class Images extends React.Component {
     }
 
     render(){
-        let {logout, token, albumId, albumName, albumOwner} = this.props;
+        let {logout, token, albumId, albumName, albumOwner, changeAppState} = this.props;
         return(
             <div className="topdiv-flex">
                 <h2 className="ui header">Photo Gallery App</h2>
@@ -32,6 +32,13 @@ class Images extends React.Component {
                         active={this.state.activeItem === 'addImage'}
                         onClick={()=>this.setState({ 'activeItem': 'addImage'})}
                     />
+                    <Menu.Menu position='right'>
+                        <Menu.Item
+                        name='Home'
+                        active={this.state.activeItem === 'home'}
+                        onClick={()=>changeAppState({'appState': 'albumsPage'})}
+                        />
+                    </Menu.Menu>
                     <Menu.Menu position='right'>
                         <Menu.Item
                         name='Logout'

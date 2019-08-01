@@ -12,7 +12,7 @@ class App extends React.Component {
     this.state = { 
       'appState': 'loginPage',
       'token': null,
-      'albumActiveItem': null,
+      'albumActiveItem': 'allAlbums',
       'albumId': null,
       'imageActiveItem': null,
       'albumName': null,
@@ -25,13 +25,7 @@ class App extends React.Component {
   }
 
   changeAppState(params){
-    this.setState({ 'appState': params.appState,
-      'albumActiveItem': params.albumActiveItem,
-      'albumId': params.albumId,
-      'imageActiveItem': params.imageActiveItem,
-      'albumName': params.albumName,
-      'albumOwner': params.albumOwner,
-    })
+    this.setState(params);
   }
 
   async login(params) {
@@ -82,8 +76,18 @@ class App extends React.Component {
       return response.json();
     }).then(function(response){
       //console.log(response);
-      if (response.detail === "Successfully logged out.")
-        selfReference.setState({ 'token' : null, 'appState': 'loginPage' });
+      if (response.detail === "Successfully logged out."){
+        selfReference.setState({ 
+          'appState': 'loginPage',
+          'token': null,
+          'albumActiveItem': 'allAlbums',
+          'albumId': null,
+          'imageActiveItem': null,
+          'albumName': null,
+          'albumOwner': null,
+          'username': null,
+        });
+      }
       return response;
     })
   }

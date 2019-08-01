@@ -16,7 +16,7 @@ class Albums extends React.Component {
     }
 
     render(){
-        let {logout, token} = this.props;
+        let {logout, token, changeAppState} = this.props;
         return(
             <div className="topdiv-flex">
                 <h2 className="ui header">Photo Gallery App</h2>
@@ -24,17 +24,17 @@ class Albums extends React.Component {
                     <Menu.Item
                         name='Trending'
                         active={this.state.activeItem === 'trending'}
-                        onClick={()=>this.setState({ 'activeItem': 'trending'})}
+                        onClick={()=>{this.setState({ 'activeItem': 'trending'}); changeAppState({'albumActiveItem':'trending'}); }}
                     />
                     <Menu.Item
                         name='My Albums'
                         active={this.state.activeItem === 'allAlbums'}
-                        onClick={()=>this.setState({ 'activeItem': 'allAlbums'})}
+                        onClick={()=>{this.setState({ 'activeItem': 'allAlbums'}); changeAppState({'albumActiveItem':'allAlbums'}); }}
                     />
                     <Menu.Item
                         name='Create Album'
                         active={this.state.activeItem === 'createAlbum'}
-                        onClick={()=>this.setState({ 'activeItem': 'createAlbum'})}
+                        onClick={()=>{this.setState({ 'activeItem': 'createAlbum'}); changeAppState({'albumActiveItem':'createAlbum'}); }}
                     />
                     <Menu.Menu position='right'>
                         <Menu.Item
