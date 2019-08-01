@@ -64,6 +64,7 @@ class Albums extends React.Component {
                     <Trending
                         token={token}
                         changeAppState={this.props.changeAppState}
+                        username={this.props.username}
                     />
                 :
                     null

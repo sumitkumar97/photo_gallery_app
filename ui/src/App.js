@@ -16,7 +16,8 @@ class App extends React.Component {
       'albumId': null,
       'imageActiveItem': null,
       'albumName': null,
-      'albumOwner': null
+      'albumOwner': null,
+      'username': null,
     };
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
@@ -58,7 +59,7 @@ class App extends React.Component {
       //console.log(myJson);
       if ( typeof myJson.key === "undefined" )
         return;
-      selfReference.setState({ 'token' : myJson.key, 'appState': 'albumsPage' });
+      selfReference.setState({ 'token' : myJson.key, 'appState': 'albumsPage', 'username': params.username});
       //console.log(selfReference.state);
     });
     if ( this.state.appState === 'loginPage' )
@@ -118,6 +119,7 @@ class App extends React.Component {
           token={this.state.token}
           changeAppState={this.changeAppState}
           activeItem={this.state.albumActiveItem}
+          username={this.state.username}
         />
       );
     }

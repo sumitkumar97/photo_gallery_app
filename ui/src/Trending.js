@@ -75,7 +75,7 @@ class Trending extends React.Component {
                                             {
                                                 albumId: album.id,
                                                 albumName: album.name,
-                                                albumOwner: false,
+                                                albumOwner: selfReference.props.username === album.owner,
                                                 imageActiveItem: 'images',
                                                 appState: 'imagesPage',
                                             }
@@ -84,7 +84,11 @@ class Trending extends React.Component {
                                         {album.name}
                                     </h3>
                                 </u>
-                                <button className="negative ui button" onClick={()=>selfReference.deleteAlbums(album.id)}>Delete</button>
+                                {selfReference.props.username === album.owner?
+                                    <button className="negative ui button" onClick={()=>selfReference.deleteAlbums(album.id)}>Delete</button>
+                                :
+                                    null
+                                }
                             </div>
                             <div>{`By ${album.owner}`}</div>
                             { album.cover ?
