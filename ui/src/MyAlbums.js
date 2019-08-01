@@ -104,7 +104,17 @@ class MyAlbums extends React.Component {
         );
         return <div className='album-container'>
             {
-                albumListJsx
+                albumListJsx.length?
+                    albumListJsx
+                :
+                <div className="ui error message">
+                    <div className="header">
+                        You have not created any albums.
+                    </div>
+                    <ul className="list">
+                        <li>Head to the 'Create Album' section to create albums</li>
+                    </ul>
+                </div>
             }
         </div>
     }

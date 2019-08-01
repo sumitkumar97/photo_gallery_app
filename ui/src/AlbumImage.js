@@ -88,7 +88,17 @@ class AlbumImage extends React.Component {
         );
         return <div className='album-container'>
             {
-                imageListJsx
+                imageListJsx.length?
+                    imageListJsx
+                :
+                <div className="ui error message">
+                    <div className="header">
+                        This album does not have any photos.
+                    </div>
+                    <ul className="list">
+                        <li>Head to the 'Add Photo' section to add them</li>
+                    </ul>
+                </div>
             }
         </div>
     }

@@ -109,7 +109,17 @@ class Trending extends React.Component {
         );
         return <div className='album-container'>
             {
-                albumListJsx
+                albumListJsx.length?
+                    albumListJsx
+                :
+                <div className="ui error message">
+                    <div className="header">
+                        There are no public albums added.
+                    </div>
+                    <ul className="list">
+                        <li>Head to the 'Create Album' section to be the first one to add them</li>
+                    </ul>
+                </div>
             }
         </div>
     }
