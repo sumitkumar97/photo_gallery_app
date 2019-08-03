@@ -83,18 +83,16 @@ class App extends React.Component {
     .catch(error => console.error('Error:', error))
     .then(function(response){
       //console.log(response);
-      if (response.detail === "Successfully logged out."){
-        selfReference.setState({ 
-          'appState': 'loginPage',
-          'token': null,
-          'albumActiveItem': 'allAlbums',
-          'albumId': null,
-          'imageActiveItem': null,
-          'albumName': null,
-          'albumOwner': null,
-          'username': null,
-        });
-      }
+      selfReference.setState({ 
+        'appState': 'loginPage',
+        'token': null,
+        'albumActiveItem': 'allAlbums',
+        'albumId': null,
+        'imageActiveItem': null,
+        'albumName': null,
+        'albumOwner': null,
+        'username': null,
+      });
       return response;
     })
   }
