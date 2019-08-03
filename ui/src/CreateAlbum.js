@@ -63,7 +63,7 @@ class CreateAlbum extends React.Component {
                 selfReference.props.changeAppState(newState);
             }
             else
-                selfReference.setState({ loading: false });
+                selfReference.setState({ loading: false, error: result && result.cover? result.cover: '' });
             return result;
         });
     }
@@ -79,7 +79,7 @@ class CreateAlbum extends React.Component {
 
 
     handleUpload(e){
-        this.setState({ cover: e.target.files[0]});
+        this.setState({ cover: e.target.files[0], error:'' });
     }
 
     async handleSubmit(e) {

@@ -60,7 +60,7 @@ class AddImage extends React.Component {
                 selfReference.props.changeAppState(newState);
             }
             else
-                selfReference.setState({ loading: false });
+                selfReference.setState({ loading: false, error: result && result.file && result.file[0] ? result.file[0] : '' });
             return result;
         });
     }
@@ -71,7 +71,7 @@ class AddImage extends React.Component {
     }
 
     handleUpload(e){
-        this.setState({ imgFile: e.target.files[0]});
+        this.setState({ imgFile: e.target.files[0], error:''});
     }
 
     async handleSubmit(e) {
