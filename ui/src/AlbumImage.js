@@ -63,6 +63,8 @@ class AlbumImage extends React.Component {
 
     render() {
         let {imageList} = this.state;
+        if ( !imageList )
+            return <div className="ui negative message">Server not responding.</div>
         let selfReference = this ;
         let imageListJsx = imageList.map(
             function(image){

@@ -64,7 +64,7 @@ class MyAlbums extends React.Component {
     render() {
         let {albumList} = this.state;
         if ( !albumList )
-            return <div>Server not responding.</div>
+            return <div className="ui negative message">Server not responding.</div>
         let selfReference = this ;
         let albumListJsx = albumList.map(
             function(album){
