@@ -30,6 +30,7 @@ class SignUp extends React.Component {
 
         let url = `${API_HOST}/api/v1/rest-auth/registration/`;
         let selfReference = this ;
+        let failedFetch = false;
         await fetch(url, {
             method: 'POST', // *GET, POST, PUT, DELETE, etc.
             headers: {
@@ -41,27 +42,30 @@ class SignUp extends React.Component {
         .then(function(response) {
             return response.json();
         })
+        .catch(error => {console.error('Error:', error); failedFetch = true;})
         .then(function(response) {
             //console.log(response);
-            if ( response.key ){
+            if ( response && response.key ){
                 selfReference.props.changeAppState({ 'appState': 'loginPage' });
                 return;
             }
             let error = '';
-            if ( response.username ){
+            if ( response && response.username ){
                 response.username.forEach(
                     function (item) {
                         error += item + " ";
                     }
                 )
             }
-            if ( response.password1 ){
+            if ( response && response.password1 ){
                 response.password1.forEach(
                     function (item) {
                         error += item + " ";
                     }
                 )
             }
+            if ( failedFetch )
+                error = "Server not responding.";
             selfReference.setState({ loading: false, error });
         });
     }

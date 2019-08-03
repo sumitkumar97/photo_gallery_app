@@ -36,8 +36,8 @@ class Login extends React.Component {
         this.setState({ loading: true });
         let response = await this.props.login(this.state);
         //console.log(response);
-        if ( response === "failed" )
-            this.setState({ loading: false, error: 'Unable to log in with provided credentials.' });
+        if ( response )
+            this.setState({ loading: false, error: response });
     }
 
     render() {

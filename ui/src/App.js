@@ -38,6 +38,7 @@ class App extends React.Component {
 
     let url = `${API_HOST}/api/v1/rest-auth/login/`;
     let selfReference = this ;
+    let failedFetch = false;
     await fetch(url, {
       method: 'POST', // *GET, POST, PUT, DELETE, etc.
       headers: {
@@ -49,15 +50,19 @@ class App extends React.Component {
     .then(function(response) {
       return response.json();
     })
+    .catch(error => {console.error('Error:', error); failedFetch = true;})
     .then(function(myJson) {
       //console.log(myJson);
-      if ( typeof myJson.key === "undefined" )
+      if ( !myJson || !myJson.key )
         return;
       selfReference.setState({ 'token' : myJson.key, 'appState': 'albumsPage', 'username': params.username});
       //console.log(selfReference.state);
     });
-    if ( this.state.appState === 'loginPage' )
-      return "failed";
+    if ( this.state.appState === 'loginPage' ){
+      if ( failedFetch )
+        return "Server not responding.";
+      return "Unable to log in with provided credentials.";
+    }
   }
 
   async logout() {
@@ -74,7 +79,9 @@ class App extends React.Component {
     })
     .then(function(response) {
       return response.json();
-    }).then(function(response){
+    })
+    .catch(error => console.error('Error:', error))
+    .then(function(response){
       //console.log(response);
       if (response.detail === "Successfully logged out."){
         selfReference.setState({ 
